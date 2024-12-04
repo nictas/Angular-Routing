@@ -5,7 +5,8 @@ import { AuthService } from './user/auth.service';
 @Component({
   selector: 'pm-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  standalone: false
 })
 export class AppComponent {
   pageTitle = 'Acme Product Management';
