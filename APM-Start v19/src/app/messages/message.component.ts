@@ -7,7 +7,8 @@ import { MessageService } from './message.service';
   templateUrl: './message.component.html',
   styles: [
     '.message-row { margin-bottom: 10px }'
-  ]
+  ],
+  standalone: false
 })
 export class MessageComponent {
   get messages(): string[] {

@@ -7,7 +7,8 @@ import { ProductService } from '../product.service';
 
 @Component({
   templateUrl: './product-edit.component.html',
-  styleUrls: ['./product-edit.component.css']
+  styleUrls: ['./product-edit.component.css'],
+  standalone: false
 })
 export class ProductEditComponent {
   pageTitle = 'Product Edit';

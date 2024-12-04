@@ -3,7 +3,8 @@ import { Component, OnChanges, Input, EventEmitter, Output } from '@angular/core
 @Component({
   selector: 'pm-star',
   templateUrl: './star.component.html',
-  styleUrls: ['./star.component.css']
+  styleUrls: ['./star.component.css'],
+  standalone: false
 })
 export class StarComponent implements OnChanges {
   @Input() rating = 0;
