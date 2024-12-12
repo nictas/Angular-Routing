@@ -11,7 +11,7 @@ import { WelcomeComponent } from './home/welcome.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 
 /* Feature Modules */
-import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 import { MessageModule } from './messages/message.module';
 import { ProductModule } from './products/product.module';
 import { UserModule } from './user/user.module';
@@ -21,14 +21,10 @@ import { UserModule } from './user/user.module';
     BrowserModule,
     HttpClientModule,
     InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
-    RouterModule.forRoot([
-      { path: 'welcome', component: WelcomeComponent },
-      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', component: PageNotFoundComponent }
-    ]),
     ProductModule,
     UserModule,
-    MessageModule
+    MessageModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
