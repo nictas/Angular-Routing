@@ -1,19 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Product } from './product';
 import { ProductService } from './product.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
   standalone: false
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit {
   pageTitle = 'Product Detail';
   product: Product | null = null;
   errorMessage = '';
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    if (this.route.snapshot.params['id']) {
+      const id = Number(this.route.snapshot.params['id']);
+      this.getProduct(id);
+    }
+  }
 
   getProduct(id: number): void {
     this.productService.getProduct(id).subscribe({
