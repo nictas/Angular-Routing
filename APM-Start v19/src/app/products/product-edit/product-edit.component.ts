@@ -1,23 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { MessageService } from '../../messages/message.service';
 
 import { Product } from '../product';
 import { ProductService } from '../product.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.css'],
   standalone: false
 })
-export class ProductEditComponent {
+export class ProductEditComponent implements OnInit {
   pageTitle = 'Product Edit';
   errorMessage = '';
 
   product: Product | null = null;
 
   constructor(private productService: ProductService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    if (this.route.snapshot.params['id']) {
+      const id = Number(this.route.snapshot.params['id']);
+      this.getProduct(id);
+    }
+  }
 
   getProduct(id: number): void {
     this.productService.getProduct(id).subscribe({
@@ -41,17 +50,17 @@ export class ProductEditComponent {
   }
 
   deleteProduct(): void {
-      if (!this.product || !this.product.id) {
-        // Don't delete, it was never saved.
-        this.onSaveComplete(`${this.product?.productName} was deleted`);
-      } else {
-        if (confirm(`Really delete the product: ${this.product.productName}?`)) {
-          this.productService.deleteProduct(this.product.id).subscribe({
-            next: () => this.onSaveComplete(`${this.product?.productName} was deleted`),
-            error: err => this.errorMessage = err
-          });
-        }
+    if (!this.product || !this.product.id) {
+      // Don't delete, it was never saved.
+      this.onSaveComplete(`${this.product?.productName} was deleted`);
+    } else {
+      if (confirm(`Really delete the product: ${this.product.productName}?`)) {
+        this.productService.deleteProduct(this.product.id).subscribe({
+          next: () => this.onSaveComplete(`${this.product?.productName} was deleted`),
+          error: err => this.errorMessage = err
+        });
       }
+    }
   }
 
   saveProduct(): void {
