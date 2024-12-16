@@ -7,25 +7,21 @@
     <div class="row">
       <div class="col-md-2">Filter by:</div>
       <div class="col-md-4">
-        <input type="text"
-               [(ngModel)]="listFilter" />
+        <input type="text" [(ngModel)]="listFilter" />
       </div>
     </div>
-    <div class="row"
-         *ngIf="listFilter">
+    <div class="row" *ngIf="listFilter">
       <div class="col-md-6">
         <h4>Filtered by: {{listFilter}}</h4>
       </div>
     </div>
 
     <div class="table-responsive">
-      <table class="table mb-0"
-             *ngIf="products && products.length">
+      <table class="table mb-0" *ngIf="products && products.length">
         <thead>
           <tr>
             <th>
-              <button class="btn btn-outline-primary btn-sm"
-                      (click)="toggleImage()">
+              <button class="btn btn-outline-primary btn-sm" (click)="toggleImage()">
                 {{showImage ? "Hide" : "Show"}} Image
               </button>
             </th>
@@ -40,14 +36,11 @@
         <tbody>
           <tr *ngFor="let product of filteredProducts">
             <td>
-              <img *ngIf="showImage && product.imageUrl"
-                   [src]="product.imageUrl"
-                   [title]="product.productName"
-                   [style.width.px]="imageWidth"
-                   [style.margin.px]="imageMargin">
+              <img *ngIf="showImage && product.imageUrl" [src]="product.imageUrl" [title]="product.productName"
+                [style.width.px]="imageWidth" [style.margin.px]="imageMargin">
             </td>
             <td>
-              <a>
+              <a [routerLink]="['/products', product.id]">
                 {{ product.productName }}
               </a>
             </td>
@@ -59,7 +52,7 @@
               </pm-star>
             </td>
             <td>
-              <button class="btn btn-outline-primary btn-sm">
+              <button [routerLink]="['/products', product.id, 'edit']" class="btn btn-outline-primary btn-sm">
                 Edit
               </button>
             </td>
@@ -71,7 +64,6 @@
   </div>
 </div>
 
-<div *ngIf="errorMessage"
-     class="alert alert-danger">
+<div *ngIf="errorMessage" class="alert alert-danger">
   Error: {{ errorMessage }}
 </div>
