@@ -15,8 +15,11 @@ import { ProductResolverService } from './product-resolver.service';
     SharedModule,
     RouterModule.forChild([
       {
-        path: 'products', component: ProductListComponent,
+        path: 'products',
         children: [
+          {
+            path: '', component: ProductListComponent
+          },
           {
             path: ':id', component: ProductDetailComponent,
             resolve: { product: ProductResolverService }
