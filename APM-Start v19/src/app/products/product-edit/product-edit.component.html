@@ -5,8 +5,8 @@
 
   <div class="card-body" *ngIf="product">
     <div class="wizard">
-      <a>Basic information</a>
-      <a>Search Tags</a>
+      <a [routerLink]="['info']">Basic information</a>
+      <a [routerLink]="['tags']">Search Tags</a>
     </div>
     <router-outlet></router-outlet>
     <div class="row mt-2">
