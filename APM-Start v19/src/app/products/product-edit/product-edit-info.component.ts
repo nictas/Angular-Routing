@@ -5,7 +5,8 @@ import { NgForm } from '@angular/forms';
 import { Product } from '../product';
 
 @Component({
-  templateUrl: './product-edit-info.component.html'
+  templateUrl: './product-edit-info.component.html',
+  standalone: false
 })
 export class ProductEditInfoComponent implements OnInit {
   @ViewChild(NgForm) productForm?: NgForm;
