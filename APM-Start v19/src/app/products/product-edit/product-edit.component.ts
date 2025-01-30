@@ -15,7 +15,8 @@ export class ProductEditComponent implements OnInit {
   pageTitle = 'Product Edit';
   errorMessage = '';
 
-  product: Product | null = null;
+  private initialProduct: Product | null = null;
+  private currentProduct: Product | null = null;
 
   private dataIsValid: { [key: string]: boolean } = {};
 
@@ -25,6 +26,20 @@ export class ProductEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) { }
+
+  get product(): Product | null {
+    return this.currentProduct;
+  }
+
+  set product(value: Product | null) {
+    this.currentProduct = value;
+    // Clone the object to retain a copy
+    this.initialProduct = value ? { ...value } : null;
+  }
+
+  get isDirty(): boolean {
+    return JSON.stringify(this.initialProduct) !== JSON.stringify(this.currentProduct);
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
@@ -92,6 +107,7 @@ export class ProductEditComponent implements OnInit {
     if (message) {
       this.messageService.addMessage(message);
     }
+    this.resetProduct();
     this.router.navigateByUrl("/products");
   }
 
@@ -110,5 +126,10 @@ export class ProductEditComponent implements OnInit {
     } else {
       this.dataIsValid['tags'] = false;
     }
+  }
+
+  resetProduct(): void {
+    this.initialProduct = null;
+    this.currentProduct = null;
   }
 }
